@@ -83,9 +83,9 @@ module OAuth
       end
 
       def oauth2_token(request)
-        request.params["oauth_token"] ||
-          request.env["HTTP_AUTHORIZATION"] &&
-          request.env["HTTP_AUTHORIZATION"][/^(OAuth|Token) ([^\s]*)$/, 2]
+        (request.params["oauth_token"] || request.params["access_token"]) ||
+        (request.env["HTTP_AUTHORIZATION"] &&
+        request.env["HTTP_AUTHORIZATION"][/^(OAuth|Token) ([^\s]*)$/, 2])
       end
     end
   end
